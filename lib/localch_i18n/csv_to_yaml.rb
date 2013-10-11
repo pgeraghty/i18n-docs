@@ -1,4 +1,9 @@
 module LocalchI18n
+  mattr_accessor :rails_root
+
+  def self.rails_root
+    @@rails_root ||= defined?(ENGINE_PATH) ? Pathname.new(ENGINE_PATH) : Rails.root rescue nil
+  end
 
   class CsvToYaml
 
@@ -20,7 +25,7 @@ module LocalchI18n
     def write_files
       @locales.each do |locale|
         if defined?(Rails)
-          output_file_path = Rails.root.join('config', 'locales', locale, @output_file)
+          output_file_path = LocalchI18n.rails_root.join('config', 'locales', locale, @output_file)
           FileUtils.mkdir_p File.dirname(output_file_path)
         else
           output_file_path = "#{locale}_#{@output_file}"

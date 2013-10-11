@@ -101,7 +101,7 @@ module LocalchI18n
     def load_config
       @yaml = {}
       begin
-        @yaml = YAML.load_file(File.join(Rails.root, 'config', 'ignore_missing_i18n_keys.yml'))
+        @yaml = YAML.load_file(File.join(LocalchI18n.rails_root, 'config', 'ignore_missing_i18n_keys.yml'))
       rescue => e
         STDERR.puts "No ignore_missing_keys.yml config file."
       end
